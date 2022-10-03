@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyFirstApp</string>
+    <string name="ipt_name">Nombre</string>
+    <string name="ipt_surname">Apellido</string>
+    <string-array name="sex_pos">
+        <item>Masculino</item>
+        <item>Femenino</item>
+    </string-array>
+    <string name="btn_cln">Limpiar</string>
+    <string name="button_send">Enviar</string>
+</resources>
