@@ -12,9 +12,12 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.my_first_app.MESSAGE";
-    EditText date;
+    EditText date,nameText, surnText;
+    Spinner sex;
     DatePickerDialog datePickerDialog;
-    Button sendBtn;
+    Button sendBtn, cleanBtn;
+    ArrayList<CheckBox> languages;
+    RadioGroup likeCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,10 +25,24 @@ public class MainActivity extends AppCompatActivity {
 
         date = (EditText) findViewById(R.id.date);
         sendBtn = (Button) findViewById(R.id.sendBtn);
+        cleanBtn = (Button) findViewById(R.id.cleanBtn);
+        nameText = (EditText) findViewById(R.id.name);
+        surnText = (EditText) findViewById(R.id.surname);
+        sex = (Spinner) findViewById(R.id.sex);
+        languages = new ArrayList<>();
+        getCbxs(languages);
+        likeCode = (RadioGroup) findViewById(R.id.radioGroup2);
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendMessage(view);
+            }
+        });
+
+        cleanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cleanForm(view);
             }
         });
         date.setOnClickListener(new View.OnClickListener() {
@@ -49,29 +66,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void getCbxs(ArrayList<CheckBox> languages) {
+        languages.add((CheckBox) findViewById(R.id.cbxJava));
+        languages.add((CheckBox) findViewById(R.id.cbxC));
+        languages.add((CheckBox) findViewById(R.id.cbxCS));
+        languages.add((CheckBox) findViewById(R.id.cbxGo));
+        languages.add((CheckBox) findViewById(R.id.cbxJs));
+        languages.add((CheckBox) findViewById(R.id.cbxPy));
+    }
+
     public void sendMessage(View view) {
         Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText nameText = (EditText) findViewById(R.id.name);
-        EditText surnText = (EditText) findViewById(R.id.surname);
-        Spinner sex = (Spinner) findViewById(R.id.sex);
         StringBuilder message = null;
 
         if(!nameText.getText().toString().equalsIgnoreCase("") && !surnText.getText().toString().equalsIgnoreCase("") && !sex.getSelectedItem().toString().equalsIgnoreCase("") && !date.getText().toString().equalsIgnoreCase("")){
             message = new StringBuilder("¡Hola!, mi nombre es: " + nameText.getText().toString() + " " + surnText.getText().toString() + ".\n\n"
                     + "Soy " + sex.getSelectedItem().toString() + ", y nací en la fecha " + date.getText().toString() + ".\n\n");
-            RadioGroup likeCode = (RadioGroup) findViewById(R.id.radioGroup2);
             int answerLikeCode = likeCode.getCheckedRadioButtonId();
             RadioButton rdB = (RadioButton) findViewById(answerLikeCode);
             String selection = rdB.getText().toString();
-            ArrayList<CheckBox> languages = new ArrayList<>();
-            languages.add((CheckBox) findViewById(R.id.cbxJava));
-            languages.add((CheckBox) findViewById(R.id.cbxC));
-            languages.add((CheckBox) findViewById(R.id.cbxCS));
-            languages.add((CheckBox) findViewById(R.id.cbxGo));
-            languages.add((CheckBox) findViewById(R.id.cbxJs));
-            languages.add((CheckBox) findViewById(R.id.cbxPy));
             Boolean isPoblated = checkOne(languages);
-
             if(selection.equalsIgnoreCase("si") && isPoblated){
 
                 message.append("Me gusta programar. Mis lenguajes favoritos son: ");
@@ -99,6 +113,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //intent.putExtra(EXTRA_MESSAGE, message);
+    }
+
+    public void cleanForm(View view){
+        nameText.setText("");
+        surnText.setText("");
+        sex.setSelection(0);
+        date.setText("");
+        RadioButton rdb = (RadioButton) likeCode.getChildAt(0);
+        rdb.setChecked(true);
+        rdb = (RadioButton) likeCode.getChildAt(1);
+        rdb.setChecked(false);
+        for (CheckBox c: languages) {
+            c.setChecked(false);
+        }
     }
 
     private boolean checkOne(ArrayList<CheckBox> checkBoxes){
