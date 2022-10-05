@@ -22,6 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!--Child activities below-->
+        <activity
+                android:name=".PermissionTab" android:exported="false">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".MainActivity"/>
+        </activity>
     </application>
 
 </manifest>
