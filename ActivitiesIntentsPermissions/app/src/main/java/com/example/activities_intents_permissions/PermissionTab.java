@@ -1,6 +1,11 @@
 package com.example.activities_intents_permissions;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.provider.ContactsContract;
+import android.provider.MediaStore;
+import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +41,32 @@ public class PermissionTab extends AppCompatActivity {
             p.getAction().setClickable(isGranted(p));
         }
 
+        permissions.get(0).getAction().setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            startActivity(intent);
+        });
+
+        permissions.get(1).getAction().setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setPackage("com.google.android.apps.maps");
+            startActivity(intent);
+        });
+
+        permissions.get(2).getAction().setOnClickListener(view -> {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivity(intent);
+        });
+
+        permissions.get(3).getAction().setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+"8092234299"));
+            startActivity(intent);
+        });
+
+        permissions.get(4).getAction().setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            startActivity(intent);
+        });
     }
 
     private Boolean isGranted(Permission<Button> permission){
