@@ -1,25 +1,20 @@
 package com.example.activities_intents_permissions.Class;
 
-import androidx.appcompat.widget.SwitchCompat;
-
-import java.util.ArrayList;
-
-public class Permission {
+public class Permission<T> {
     String name;
     String permission;
-    SwitchCompat switchCompat;
+    T action;
     int requestCode;
 
-    public Permission(String name,String permission,SwitchCompat switchCompat, int requestCode){
+    public Permission(String name, String permission, T action, int requestCode){
         this.name = name;
         this.permission = permission;
-        this.switchCompat = switchCompat;
+        this.action = action;
         this.requestCode = requestCode;
     }
     public Permission(){
 
     }
-
 
     public String getName() {
         return name;
@@ -29,8 +24,8 @@ public class Permission {
         return permission;
     }
 
-    public SwitchCompat getSwitchCompat() {
-        return switchCompat;
+    public T getAction() {
+        return action;
     }
 
     public int getRequestCode() {
