@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Boolean isGranted(Permission permission){
-        return ContextCompat.checkSelfPermission(this, permission.getPermission()) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(this,
+                permission.getPermission()) == PackageManager.PERMISSION_GRANTED;
     }
 
     public void nextMessage(View view){
@@ -91,14 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this,new String[]{permission.getPermission()},
                         permission.getRequestCode());
             }
-
-            /*if(permission == lastPermission){
-                startActivity(intent);
-            }*/
         }
-
-        //need a way to stop this and wait for the dialogs
-        //startActivity(intent);
     }
 
     public Permission getByCode(int rc){
