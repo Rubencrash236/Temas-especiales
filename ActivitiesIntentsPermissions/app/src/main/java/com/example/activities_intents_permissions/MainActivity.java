@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.example.activities_intents_permissions.Class.Permission;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,15 +51,14 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if(requestCode >= 101 && requestCode <= 105) {
-            Permission permission = getByCode(requestCode);
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this, permission.getName()+" permission granted", Toast.LENGTH_SHORT).show();
+        if(requestCode == 101) {
+            for (String string: permissions) {
+                Permission permission = getByCode(string);
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(this, permission.getName()+" permission granted", Toast.LENGTH_SHORT).show();
+                }
             }
-
-            if(permission.getRequestCode() == lastPermission.getRequestCode()){
-                startActivity(intent);
-            }
+            startActivity(intent);
         }
     }
 
@@ -69,36 +69,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void nextMessage(View view){
         ArrayList<Permission> pAdd = new ArrayList<>();
+        ArrayList<String> pName = new ArrayList<>();
         for (Permission p:permissions) {
             if(p.getSwitchCompat().isChecked() && !isGranted(p)){
                 pAdd.add(p);
+                pName.add(p.getPermission());
             }
         }
-        lastPermission = pAdd.get(pAdd.size()-1);
-        for (Permission permission: pAdd) {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this, permission.getPermission())){
-                new AlertDialog.Builder(this)
-                        .setTitle("Permission needed")
-                        .setMessage("This permission is needed for the best experience :3")
-                        .setPositiveButton("ok", (dialogInterface, i) -> {
-                            ActivityCompat.requestPermissions(MainActivity.this,
-                                    new String[]{permission.getPermission()}, permission.getRequestCode());
-
-                        })
-                        .setNegativeButton("cancel", ((dialogInterface, i) -> {
-                            dialogInterface.dismiss();
-                        })).create().show();
-            } else{
-                ActivityCompat.requestPermissions(this,new String[]{permission.getPermission()},
-                        permission.getRequestCode());
-            }
+        if(pAdd.size() > 0){
+            lastPermission = pAdd.get(pAdd.size()-1);
+            ActivityCompat.requestPermissions(this,pName.toArray(new String[pName.size()]),101);
+        } else {
+            startActivity(intent);
         }
     }
 
-    public Permission getByCode(int rc){
+    public Permission getByCode(String permission){
         Permission aux = new Permission();
         for (Permission p:permissions) {
-            if(p.getRequestCode() == rc){
+            if(p.getPermission().equalsIgnoreCase(permission)){
                 return p;
             }
         }
