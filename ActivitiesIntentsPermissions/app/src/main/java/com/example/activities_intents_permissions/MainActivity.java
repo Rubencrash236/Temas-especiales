@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
             if(isGranted(p))
                 p.getAction().setClickable(false);
         }
+
+        Button continueBtn = findViewById(R.id.continueBtn);
+        Button cancelBtn = findViewById(R.id.cancelBtn);
+        continueBtn.setOnClickListener(this::nextMessage);
+        cancelBtn.setOnClickListener(view -> {
+            finishAffinity();
+            System.exit(0);
+        });
     }
 
     @Override
