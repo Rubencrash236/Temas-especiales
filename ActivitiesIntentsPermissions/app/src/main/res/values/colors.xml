@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Extra colors -->
+    <color name="rich_black">#FF0A0908</color>
+    <color name="gunmetal">#FF22333B</color>
+    <color name="almond">#FFEAE0D5</color>
+    <color name="khabi_web">#FFC6AC8F</color>
+    <color name="umber">#FF5E503F</color>
 </resources>

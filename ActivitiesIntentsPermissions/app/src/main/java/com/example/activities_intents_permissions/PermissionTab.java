@@ -3,6 +3,7 @@ package com.example.activities_intents_permissions;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
@@ -37,8 +38,13 @@ public class PermissionTab extends AppCompatActivity {
 
         /// Check if permission is granted and reflecting them on the switch
         for (Permission<Button> p:permissions) {
-            p.getAction().setEnabled(isGranted(p));
-            p.getAction().setClickable(isGranted(p));
+            if(isGranted(p)){
+                p.getAction().setEnabled(true);
+            }else {
+                p.getAction().setEnabled(false);
+                p.getAction().setBackgroundColor(Color.parseColor("#FF22333B"));
+                p.getAction().setTextColor(Color.parseColor("#FF5E503F"));
+            }
         }
 
         permissions.get(0).getAction().setOnClickListener(view -> {

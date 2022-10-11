@@ -40,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
         /// Check if permission is granted and reflecting them on the switch
         for (Permission<SwitchCompat> p:permissions) {
-            p.getAction().setChecked(isGranted(p));
-            if(isGranted(p))
+            if(isGranted(p)){
                 p.getAction().setClickable(false);
+                p.getAction().setChecked(true);
+            }
         }
 
         Button continueBtn = findViewById(R.id.continueBtn);
