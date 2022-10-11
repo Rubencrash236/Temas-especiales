@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if(pAdd.size() > 0){
-            ActivityCompat.requestPermissions(this,pName.toArray(new String[pName.size()]),101);
+            ActivityCompat.requestPermissions(this,pName.toArray(new String[0]),101);
         } else {
             startActivity(intent);
         }
