@@ -1,5 +1,6 @@
 package com.example.activities_intents_permissions;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -24,16 +25,16 @@ public class PermissionTab extends AppCompatActivity {
         setContentView(R.layout.activity_permission_tab);
 
         permissions = new ArrayList<>();
-        permissions.add(new Permission<>("Storage","android.permission.READ_EXTERNAL_STORAGE",
-                findViewById(R.id.storageBtn), 101));
-        permissions.add(new Permission<>("Location","android.permission.ACCESS_COARSE_LOCATION",
-                findViewById(R.id.locationBtn),102));
-        permissions.add(new Permission<>("Camera","android.permission.CAMERA",
-                findViewById(R.id.cameraBtn),103));
-        permissions.add(new Permission<>("Phone","android.permission.CALL_PHONE",
-                findViewById(R.id.phoneBtn),104));
-        permissions.add(new Permission<>("Contacts","android.permission.READ_CONTACTS",
-                findViewById(R.id.contactsBtn),105));
+        permissions.add(new Permission<>("Storage", Manifest.permission.READ_EXTERNAL_STORAGE,
+                findViewById(R.id.storageBtn)));
+        permissions.add(new Permission<>("Location",Manifest.permission.ACCESS_COARSE_LOCATION,
+                findViewById(R.id.locationBtn)));
+        permissions.add(new Permission<>("Camera",Manifest.permission.CAMERA,
+                findViewById(R.id.cameraBtn)));
+        permissions.add(new Permission<>("Phone",Manifest.permission.CALL_PHONE,
+                findViewById(R.id.phoneBtn)));
+        permissions.add(new Permission<>("Contacts",Manifest.permission.READ_CONTACTS,
+                findViewById(R.id.contactsBtn)));
 
         /// Check if permission is granted and reflecting them on the switch
         for (Permission<Button> p:permissions) {

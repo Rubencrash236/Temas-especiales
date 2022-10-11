@@ -4,13 +4,11 @@ public class Permission<T> {
     String name;
     String permission;
     T action;
-    int requestCode;
 
-    public Permission(String name, String permission, T action, int requestCode){
+    public Permission(String name, String permission, T action){
         this.name = name;
         this.permission = permission;
         this.action = action;
-        this.requestCode = requestCode;
     }
     public Permission(){
 
@@ -28,7 +26,4 @@ public class Permission<T> {
         return action;
     }
 
-    public int getRequestCode() {
-        return requestCode;
-    }
 }

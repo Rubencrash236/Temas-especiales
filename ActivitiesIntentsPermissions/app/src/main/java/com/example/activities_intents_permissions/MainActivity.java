@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<Permission<SwitchCompat>> permissions;
-    Permission<SwitchCompat> lastPermission;
     Intent intent;
 
     @Override
@@ -28,15 +27,15 @@ public class MainActivity extends AppCompatActivity {
         intent = new Intent(this, PermissionTab.class);
         permissions = new ArrayList<>();
         permissions.add(new Permission<>("Storage", Manifest.permission.READ_EXTERNAL_STORAGE,
-                findViewById(R.id.storageSwh), 101));
+                findViewById(R.id.storageSwh)));
         permissions.add(new Permission<>("Location",Manifest.permission.ACCESS_COARSE_LOCATION,
-                findViewById(R.id.locationSwh),102));
+                findViewById(R.id.locationSwh)));
         permissions.add(new Permission<>("Camera",Manifest.permission.CAMERA,
-                findViewById(R.id.cameraSwh),103));
+                findViewById(R.id.cameraSwh)));
         permissions.add(new Permission<>("Phone",Manifest.permission.CALL_PHONE,
-                findViewById(R.id.phoneSwh),104));
+                findViewById(R.id.phoneSwh)));
         permissions.add(new Permission<>("Contacts",Manifest.permission.READ_CONTACTS,
-                findViewById(R.id.contactSwh),105));
+                findViewById(R.id.contactSwh)));
 
         /// Check if permission is granted and reflecting them on the switch
         for (Permission<SwitchCompat> p:permissions) {
@@ -76,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if(pAdd.size() > 0){
-            lastPermission = pAdd.get(pAdd.size()-1);
             ActivityCompat.requestPermissions(this,pName.toArray(new String[pName.size()]),101);
         } else {
             startActivity(intent);
