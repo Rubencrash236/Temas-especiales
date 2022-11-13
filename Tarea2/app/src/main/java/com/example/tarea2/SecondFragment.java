@@ -7,13 +7,17 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import com.example.tarea2.databinding.FragmentSecondBinding;
 import com.example.tarea2.models.Product;
+import com.example.tarea2.repositories.ProductRepository;
+import com.example.tarea2.viewModels.ProductVM;
 
 public class SecondFragment extends Fragment {
 
     private FragmentSecondBinding binding;
+    private ProductVM productVM;
 
     @Override
     public View onCreateView(
@@ -22,6 +26,7 @@ public class SecondFragment extends Fragment {
     ) {
 
         binding = FragmentSecondBinding.inflate(inflater, container, false);
+        productVM = new ViewModelProvider(requireActivity()).get(ProductVM.class);
         return binding.getRoot();
     }
 
@@ -34,9 +39,11 @@ public class SecondFragment extends Fragment {
     }
 
     public void saveProduct(View view){
+
         Product product = new Product(binding.inputName.getText().toString(),
                 binding.inputDesc.getText().toString(), Double.parseDouble(binding.inputPrice.getText().toString()));
-        MainActivity.products.add(product);
+        productVM.insert(product);
+        //MainActivity.products.add(product);
         NavHostFragment.findNavController(SecondFragment.this)
                 .navigate(R.id.action_SecondFragment_to_FirstFragment);
     }

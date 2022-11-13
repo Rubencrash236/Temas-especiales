@@ -1,19 +1,33 @@
 package com.example.tarea2.models;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 @Getter
 @Setter @NoArgsConstructor
+@Entity(tableName = "products")
 public class Product {
+    @PrimaryKey
+    @NotNull
+    @ColumnInfo(name = "name")
     String name;
-    String description;
+
+    @ColumnInfo(name = "brand")
+    String brand;
+
+    @ColumnInfo(name = "price")
+    @NonNull
     Double price;
 
-    public Product(String name, String description, Double price){
+    public Product(String name, String brand, Double price){
         this.name = name;
-        this.description = description;
+        this.brand = brand;
         this.price = price;
     }
 }

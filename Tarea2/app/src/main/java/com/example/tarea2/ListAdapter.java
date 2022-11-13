@@ -11,15 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tarea2.models.Product;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
-    ArrayList<Product> data;
+    List<Product> data;
 
-    public ListAdapter(ArrayList<Product> data) {
+    public ListAdapter(List<Product> data) {
         this.data = data;
     }
 
@@ -33,18 +32,28 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        holder.name.setText(data.get(position).getName());
-        holder.desc.setText(data.get(position).getDescription());
-        holder.price.setText("$ "+data.get(position).getPrice().toString());
+        if (data != null){
+            holder.name.setText(data.get(position).getName());
+            holder.desc.setText(data.get(position).getBrand());
+            holder.price.setText("$ "+data.get(position).getPrice().toString());
+        }
+    }
+
+    public void setProducts(List<Product> products){
+        data = products;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        if(data != null){
+            return data.size();
+        }
+        return 0;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        // aquí se cambia el image shit
+        // aquí se le pone el image shit
         TextView name, desc, price;
         public ViewHolder (@NonNull View itemView){
             super(itemView);
