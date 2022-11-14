@@ -14,8 +14,8 @@ public interface ProductDao {
     @Query("SELECT * FROM products")
     List<Product> getAllProducts();
 
-    @Query("SELECT * FROM products WHERE name LIKE :name")
-    Product findProductByName(String name);
+    @Query("SELECT * FROM products WHERE id = :id")
+    Product findProductById(int id);
 
     @Delete
     void deleteProduct(Product product);

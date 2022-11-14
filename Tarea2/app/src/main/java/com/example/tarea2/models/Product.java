@@ -13,7 +13,9 @@ import org.jetbrains.annotations.NotNull;
 @Setter @NoArgsConstructor
 @Entity(tableName = "products")
 public class Product {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    int id;
     @NotNull
     @ColumnInfo(name = "name")
     String name;

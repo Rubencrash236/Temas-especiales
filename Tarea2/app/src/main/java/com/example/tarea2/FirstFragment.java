@@ -11,14 +11,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.example.tarea2.databinding.FragmentFirstBinding;
 import com.example.tarea2.models.Product;
 import com.example.tarea2.viewModels.ProductVM;
 
 import java.util.List;
 
-public class FirstFragment extends Fragment {
+public class FirstFragment extends Fragment implements RecyclerViewInterface{
 
     private FragmentFirstBinding binding;
     List<Product> products;
@@ -31,13 +30,8 @@ public class FirstFragment extends Fragment {
     ) {
         productVM = new ViewModelProvider(requireActivity()).get(ProductVM.class);
         binding = FragmentFirstBinding.inflate(inflater, container, false);
-        adapter = new ListAdapter(null);
-        productVM.getAllProducts().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
-            @Override
-            public void onChanged(List<Product> products) {
-                adapter.setProducts(products);
-            }
-        });
+        adapter = new ListAdapter(null, this);
+        productVM.getAllProducts().observe(getViewLifecycleOwner(), products -> adapter.setProducts(products));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         binding.recyclerView.setAdapter(adapter);
 
@@ -48,13 +42,9 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.fab.setOnClickListener(view1 ->
                 NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
-        });
+                .navigate(R.id.action_FirstFragment_to_SecondFragment));
     }
 
     @Override
@@ -63,4 +53,19 @@ public class FirstFragment extends Fragment {
         binding = null;
     }
 
+    @Override
+    public void onEditClick(int position) {
+        if(products == null){
+            products = adapter.getProducts();
+            Product product = products.get(position);
+            System.out.println(product.getBrand());
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", product.getId());
+            bundle.putString("name", product.getName());
+            bundle.putString("brand", product.getBrand());
+            bundle.putDouble("price", product.getPrice());
+            NavHostFragment.findNavController(FirstFragment.this)
+                    .navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
+        }
+    }
 }
