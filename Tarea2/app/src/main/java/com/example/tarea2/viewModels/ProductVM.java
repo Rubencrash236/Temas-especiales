@@ -9,6 +9,7 @@ import com.example.tarea2.repositories.ProductRepository;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ProductVM extends AndroidViewModel {
 
@@ -33,4 +34,7 @@ public class ProductVM extends AndroidViewModel {
         productRepository.update(product);
     }
     public void delete(Product product) { productRepository.delete(product); }
+    public Product findById(Integer product) throws ExecutionException, InterruptedException {
+        return productRepository.getProduct(product);
+    }
 }

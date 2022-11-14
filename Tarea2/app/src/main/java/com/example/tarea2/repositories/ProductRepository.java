@@ -9,6 +9,7 @@ import com.example.tarea2.models.Product;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ProductRepository {
     private ProductDao productDao;
@@ -30,6 +31,10 @@ public class ProductRepository {
     }
     public void delete(Product product){ new deleteAsyncTask(productDao).execute(product); }
 
+    //get img from firebase here add a download ASyncTask
+    public Product getProduct(Integer product) throws ExecutionException, InterruptedException {
+        return new findProductAsyncTask(productDao).execute(product).get();
+    }
     private static class insertAsyncTask extends AsyncTask<Product, Void, Void> {
         private ProductDao asyncProdDao;
 
@@ -72,6 +77,17 @@ public class ProductRepository {
 
             asyncProdDao.deleteProduct(products[0]);
             return null;
+        }
+    }
+
+    private static class findProductAsyncTask extends AsyncTask<Integer, Void, Product>{
+        private ProductDao asyncProdDao;
+
+        findProductAsyncTask(ProductDao asyncProdDao){ this.asyncProdDao = asyncProdDao; }
+        @Override
+        protected Product doInBackground(Integer... integers) {
+            Product product = asyncProdDao.findProductById(integers[0]);
+            return product;
         }
     }
 }

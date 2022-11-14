@@ -18,7 +18,7 @@
                 android:orientation="vertical">
             <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp" android:layout_marginVertical="5dp"
                     android:contentDescription="una foto la crt"
                     android:id="@+id/productImage"
                     app:srcCompat="@mipmap/ic_launcher"/>
@@ -27,13 +27,16 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/productName"
                     android:layout_margin="5dp"
+                    android:textSize="20sp" android:textAlignment="center"
                     android:text="Un polo shirt vacano vacano"/>
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/productDescription"
                     android:layout_margin="5dp"
-                    android:text="Una descripcion muy larga voy a tener que ver klk con esta mierda jesucristo toy jarto ya amparame"/>
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:text="Nike"/>
         </LinearLayout>
         <LinearLayout
                 android:layout_width="match_parent"
@@ -43,20 +46,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/productPrice"
-                    android:layout_margin="5dp"
+                    android:layout_marginStart="10dp"
+                    android:textSize="18sp"
                     android:text="$2,500"/>
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Add to cart"
-                    android:id="@+id/addToCartBtn"
-                    android:layout_marginStart="45dp"/>
             <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Edit"
                     android:id="@+id/editBtn"
                     android:layout_marginStart="45dp"/>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add to cart"
+                    android:id="@+id/addToCartBtn"
+                    android:layout_marginStart="30dp"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
