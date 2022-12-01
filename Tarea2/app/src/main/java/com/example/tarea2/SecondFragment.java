@@ -142,6 +142,7 @@ public class SecondFragment extends Fragment {
         }else {
             product.setId(-1);
             uploadImg(product);
+            product.setId(null);
             productVM.insert(product);
         }
 

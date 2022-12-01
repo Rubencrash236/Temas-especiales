@@ -1,6 +1,5 @@
 package com.example.tarea2.models;
 
-import android.net.Uri;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -16,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 public class Product {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    int id;
+    Integer id;
     @NotNull
     @ColumnInfo(name = "name")
     String name;

@@ -6,9 +6,7 @@
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/recyclerView"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteY="1dp"
-            tools:layout_editor_absoluteX="1dp"/>
+            android:layout_height="match_parent"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
